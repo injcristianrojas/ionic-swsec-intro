@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PostService } from './../services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -8,7 +10,20 @@ import { Component, OnInit } from '@angular/core';
 export class PostsPage implements OnInit {
   private selectedItem: any;
   public items: Array<{ title: string; note: string; }> = [];
-  constructor() {
+  results: any;
+
+  constructor(private postService:PostService) {
+    this.postService.getPosts()
+      .subscribe(
+        (data) => {
+          this.results = data;
+          console.log(data);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    console.log(this.results);
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
