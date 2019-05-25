@@ -12,8 +12,14 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(): Observable<any> {
-    return this.http.get(`${this.baseURL}`);
+  getPosts() {
+    return new Promise(resolve => {
+      this.http.get(this.baseURL).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
   }
 
 }
