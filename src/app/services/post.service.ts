@@ -17,6 +17,7 @@ export class PostService {
       this.http.get<Post[]>(this.baseURL + '/get').subscribe(
         data => {
           resolve(data);
+          console.log(data);
         },
         err => {
           console.log(err);
@@ -24,9 +25,9 @@ export class PostService {
       });
   }
 
-  postMessage() {
+  postMessage(message:String) {
     let postData = {
-      'message': 'testing the testers'
+      'message': message
     };
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,11 +35,12 @@ export class PostService {
       })
     };
 
-    this.http.post(this.baseURL + '/add', postData, httpOptions).subscribe(
-      err => {
-        console.log(err);
-      }
-    );
+    return new Promise(resolve => {
+      this.http.post(this.baseURL + '/add', postData, httpOptions).subscribe(
+        err => {
+          console.log(err);
+        });
+      });
   }
 
 }

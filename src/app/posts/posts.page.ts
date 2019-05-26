@@ -8,17 +8,31 @@ import { PostService, Post } from './../services/post.service';
   styleUrls: ['posts.page.scss']
 })
 export class PostsPage implements OnInit {
-  private selectedItem: any;
+
+  private myInput: string = "";
   public items: Array<{ title: string; note: string; }> = [];
 
   constructor(private postService:PostService) {
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.items = [];
     this.postService.getPosts()
       .then((data: Post[]) => {
         data.forEach(post => {
           this.items.push({title: 'T', note: post.message})
         })
     });
-    //this.postService.postMessage();
+  }
+
+  postMessage() {
+    this.postService.postMessage(this.myInput)
+      .then(() => {
+        this.getPosts();
+      }
+    );
+
   }
 
   ngOnInit() {
