@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,13 +8,13 @@ import { map } from 'rxjs/operators';
 })
 export class PostService {
 
-  baseURL = 'http://127.0.0.1:8080/api/posts/get';
+  baseURL = 'http://127.0.0.1:8080/api/posts';
 
   constructor(private http: HttpClient) { }
 
   getPosts() {
     return new Promise(resolve => {
-      this.http.get(this.baseURL).subscribe(data => {
+      this.http.get<Post[]>(this.baseURL + '/get').subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -22,4 +22,25 @@ export class PostService {
     });
   }
 
+  postMessage() {
+    let postData = {
+      'message': 'testing the testers'
+    };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    this.http.post(this.baseURL + '/add', postData, httpOptions).subscribe(
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+}
+
+export interface Post {
+  message: string;
 }

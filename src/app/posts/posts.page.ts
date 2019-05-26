@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PostService } from './../services/post.service';
+import { PostService, Post } from './../services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -13,11 +13,12 @@ export class PostsPage implements OnInit {
 
   constructor(private postService:PostService) {
     this.postService.getPosts()
-      .then(data => {
+      .then((data: Post[]) => {
         data.forEach(item => {
           this.items.push({title: 'T', note: item.message})
         })
-      });
+    });
+    //this.postService.postMessage();
   }
 
   ngOnInit() {
