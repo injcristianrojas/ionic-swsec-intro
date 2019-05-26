@@ -14,12 +14,14 @@ export class PostService {
 
   getPosts() {
     return new Promise(resolve => {
-      this.http.get<Post[]>(this.baseURL + '/get').subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
+      this.http.get<Post[]>(this.baseURL + '/get').subscribe(
+        data => {
+          resolve(data);
+        },
+        err => {
+          console.log(err);
+        });
       });
-    });
   }
 
   postMessage() {
