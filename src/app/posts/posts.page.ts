@@ -14,8 +14,8 @@ export class PostsPage implements OnInit {
   constructor(private postService:PostService) {
     this.postService.getPosts()
       .then((data: Post[]) => {
-        data.forEach(item => {
-          this.items.push({title: 'T', note: item.message})
+        data.forEach(post => {
+          this.items.push({title: 'T', note: post.message})
         })
     });
     //this.postService.postMessage();
