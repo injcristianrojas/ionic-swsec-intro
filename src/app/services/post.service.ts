@@ -17,7 +17,6 @@ export class PostService {
       this.http.get<Post[]>(this.baseURL + '/get').subscribe(
         data => {
           resolve(data);
-          console.log(data);
         },
         err => {
           console.log(err);
@@ -36,7 +35,10 @@ export class PostService {
     };
 
     return new Promise(resolve => {
-      this.http.post(this.baseURL + '/add', postData, httpOptions).subscribe(
+      this.http.post<Post[]>(this.baseURL + '/add', postData, httpOptions).subscribe(
+        data => {
+          resolve(data);
+        },
         err => {
           console.log(err);
         });
