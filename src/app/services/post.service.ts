@@ -25,7 +25,7 @@ export class PostService {
       });
   }
 
-  postMessage(message:String) {
+  postMessage(message:string) {
     let postData = {
       'message': message
     };
