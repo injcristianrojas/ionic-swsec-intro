@@ -28,6 +28,7 @@ export class PostsPage implements OnInit {
   }
 
   async postMessage() {
+    if (this.myInput == '') return;
     const loading = await this.loadingController.create({
       message: 'Posting...'
     });
