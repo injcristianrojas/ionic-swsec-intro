@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class PostService {
 
   baseURL = 'http://127.0.0.1:8080/api/posts';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http:HttpClient, private storage:Storage) { }
 
   getPosts() {
     return new Promise(resolve => {
@@ -54,7 +55,7 @@ export class PostService {
     return new Promise(resolve => {
       this.http.post(this.baseURL + '/auth/login', credentials, { headers: headers, observe: 'response'}).subscribe(
         (resp) => {
-          console.log(resp.headers.get('Authorization'));
+          this.storage.set('jwtToken', resp.headers.get('Authorization'));
         },
         (resp) => {
           console.log('resp-error');
