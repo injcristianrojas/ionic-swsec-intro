@@ -44,25 +44,6 @@ export class PostService {
         });
       });
   }
-
-  getJWTToken() {
-    let credentials = {
-      username: 'jperez',
-      password: '123'
-    }
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return new Promise(resolve => {
-      this.http.post(this.baseURL + '/auth/login', credentials, { headers: headers, observe: 'response'}).subscribe(
-        (resp) => {
-          console.log(resp.headers.get('Authorization'));
-        },
-        (resp) => {
-          console.log('resp-error');
-          console.log(resp);
-        });
-      });
-  }
-
 }
 
 export interface Post {
