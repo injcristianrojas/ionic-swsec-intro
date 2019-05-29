@@ -13,19 +13,14 @@ export class HomePage {
 
   async openModal() {
     const modal = await this.modalController.create({
-      component: LoginmodalPage,
-      componentProps: {
-        "paramID": 123,
-        "paramTitle": "Test Title"
-      }
+      component: LoginmodalPage
     });
  
-    // modal.onDidDismiss().then((dataReturned) => {
-    //   if (dataReturned !== null) {
-    //     this.dataReturned = dataReturned.data;
-    //     //alert('Modal Sent Data :'+ dataReturned);
-    //   }
-    // });
+    modal.onDidDismiss().then((data) => {
+      if (data !== null) {
+        
+      }
+    });
  
     return await modal.present();
   }

@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>loginmodal</ion-title>
+    <ion-title>Ingresar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item>
+    <ion-label>Username</ion-label>
+    <ion-input [(ngModel)]="username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input [(ngModel)]="password"></ion-input>
+  </ion-item>
+  <ion-button expand="full" (click)="dismissModal()">Login</ion-button>
 </ion-content>
