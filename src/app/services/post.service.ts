@@ -13,9 +13,14 @@ export class PostService {
 
   constructor(private http:HttpClient, private storage:Storage) { }
 
-  getPosts() {
+  getPosts(jwtToken:string) {
+    const httpOptions = {
+      headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', jwtToken)
+    };
     return new Promise(resolve => {
-      this.http.get<Post[]>(this.baseURL + '/posts/get').subscribe(
+      this.http.get<Post[]>(this.baseURL + '/posts/get', httpOptions).subscribe(
         data => {
           resolve(data);
         },
@@ -25,16 +30,15 @@ export class PostService {
       });
   }
 
-  postMessage(message:string) {
+  postMessage(message:string, jwtToken:string) {
     let postData = {
       'message': message
     };
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
+      headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', jwtToken)
     };
-
     return new Promise(resolve => {
       this.http.post<Post[]>(this.baseURL + '/posts/add', postData, httpOptions).subscribe(
         data => {

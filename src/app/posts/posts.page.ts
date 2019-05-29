@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService, Post } from './../services/post.service';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-posts',
@@ -12,14 +13,18 @@ export class PostsPage implements OnInit {
 
   private myInput: string = '';
   public items: Array<{ title: string; note: string; }> = [];
+  private jwtToken: string = '';
 
-  constructor(private postService: PostService, public loadingController: LoadingController) {
-    this.getPosts();
+  constructor(private postService: PostService, private storage: Storage, public loadingController: LoadingController) {
+    this.storage.get('jwtToken').then((val) => {
+      this.jwtToken = val;
+      this.getPosts();
+    });
   }
 
   getPosts() {
     this.items = [];
-    this.postService.getPosts()
+    this.postService.getPosts(this.jwtToken)
       .then((data: Post[]) => {
         data.forEach(post => {
           this.items.push({title: 'T', note: post.message})
@@ -33,7 +38,7 @@ export class PostsPage implements OnInit {
       message: 'Posting...'
     });
     await loading.present();
-    this.postService.postMessage(this.myInput)
+    this.postService.postMessage(this.myInput, this.jwtToken)
       .then((data: Post[]) => {
         this.getPosts();
         this.myInput = '';
