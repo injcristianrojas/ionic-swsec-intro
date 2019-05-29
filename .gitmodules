@@ -1,0 +1,3 @@
+[submodule "swsec-intro"]
+	path = swsec-intro
+	url = https://github.com/injcristianrojas/swsec-intro
