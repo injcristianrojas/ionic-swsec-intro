@@ -70,6 +70,10 @@ export class PostService {
       });
   }
 
+  invalidateJWTToken() {
+    this.storage.set('jwtToken', '');
+  }
+
 }
 
 export interface Post {

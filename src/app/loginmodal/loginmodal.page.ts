@@ -14,8 +14,13 @@ export class LoginmodalPage implements OnInit {
 
   constructor(private modalController:ModalController, private postService:PostService) { }
 
-  dismissModal() {
+  dismissModalLogin() {
     this.postService.getJWTToken(this.username, this.password);
+    this.modalController.dismiss();
+  }
+
+  dismissModalLogout() {
+    this.postService.invalidateJWTToken()
     this.modalController.dismiss();
   }
 
