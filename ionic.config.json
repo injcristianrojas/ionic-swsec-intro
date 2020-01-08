@@ -1,5 +1,7 @@
 {
   "name": "ionic-swsec",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
