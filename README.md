@@ -18,6 +18,6 @@ Steps:
 
 1. Launch the web server going to swsec-intro and `mvn compile jetty:run`
 1. Launch the mobile app using `ionic serve`
-1. Go to 
+1. Go to http://localhost:8100 and have fun.
 
 
